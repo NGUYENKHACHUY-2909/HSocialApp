@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Profle - Socialbook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- thư viện comment box -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet"/>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left" style="position: relative;">
+            <img class="logo" src="../images/logo.png" alt="" onclick="goHomePage()">
+            <ul class="navlogo" style="margin-bottom: 0px;">
+                <li style="position: relative; display: inline-block;">
+                    <img id="a" src="../images/notification.png" onclick="readNotifications()">
+                    <span onclick="readNotifications()" class="amount-notification" id="show-amount-notifications" style="position: absolute; top: -10px; right: 10px; background-color: red; color: white; border-radius: 50%; padding: 3px; font-size: 12px; font-weight: bold;"></span>
+                </li>
+                <li><img src="../images/inbox.png"></li>
+                <li><img src="../images/video.png"></li>
+            </ul>
+            <div id="notifications" style="display: none; position: absolute; top: 60px; left: 100px; background-color:#9aa6b3; width: 100%; padding: 20px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);font-family: 'Poppins', sans-serif;">
+                <ul style="list-style-type: none; margin: 0; padding: 0;" id="list-notifications">
+                    <!-- <li style="margin-bottom: 10px; cursor: pointer; display: flex; align-items: center;"><img src="../images/avt.jpg" alt="" style="width: 40px; height: 40px; margin-right: 20px; border-radius: 50% 50%;"> <p style="margin: 0;">Huy Long Diệt đã gửi cho bạn lời mời kết bạn</p>
+                        <button onclick = 'acceptFriednRequest(friendShipId)' type='button' style='background-color: rgb(170, 158, 158); width: 120px; height: 50px;'>Xác nhận</button>
+                    </li> -->
+                </ul>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="paging-notifications">
+                      <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+            
+        </div>
+        <div class="nav-right" style="position: relative;">
+            <div class="search-box">
+                <img src="../images/search.png" alt="">
+                <input type="text" placeholder="Tìm kiếm" oninput="sugesstionsSearch()" id="search-value">
+            </div>
+            <div class="profile-image online" onclick="UserSettingToggle()">
+                <img class = "avatar-user" src="" alt="">
+            </div>
+            <div id="sugesstions" style="position: absolute; top: 60px; background-color:#9aa6b3; width: 80%; padding: 20px; display: none;">
+                <ul style="list-style-type: none; margin: 0; padding: 0;" id="list-suggestions">
+                    <!-- <li style="margin-bottom: 10px; cursor: pointer;"><img src="../images/avt.jpg" alt="" style="width: 40px; height: 40px; margin-right: 20px; border-radius: 50% 50%;">Huy Long Diệt</li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="user-settings">
+            <div class="profile-darkButton">
+                <div class="user-profile" onclick="changeUser(idUser)">
+                    <img class="avatar-user" src="" alt="">
+                    <div>
+                        <p class="user-name"> Alex Carry</p>
+                        <a href="#">See your profile</a>
+                    </div>
+                </div>
+                <div id="dark-button" onclick="darkModeON()">
+                    <span></span>
+                </div>
+            </div>
+            <hr>
+            <div class="user-profile">
+                <img src="../images/feedback.png" alt="">
+                <div>
+                    <p> Give Feedback</p>
+                    <a href="#">Help us to improve</a>
+                </div>
+            </div>
+            <hr>
+            <div class="settings-links">
+                <img src="../images/setting.png" alt="" class="settings-icon">
+                <a href="#">Settings & Privary <img src="../images/arrow.png" alt=""></a>
+            </div>
+
+            <div class="settings-links">
+                <img src="../images/help.png" alt="" class="settings-icon">
+                <a href="#">Help & Support <img src="../images/arrow.png" alt=""></a>
+            </div>
+
+            <div class="settings-links">
+                <img src="../images/Display.png" alt="" class="settings-icon">
+                <a href="#">Display & Accessibility <img src="../images/arrow.png" alt=""></a>
+            </div>
+
+            <div class="settings-links" onclick = "logOut()">
+                <img src="../images/logout.png" alt="" class="settings-icon">
+                <a  >Logout <img src="../images/arrow.png" alt=""></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- profile-page-------------------------- -->
+
+
+    <div class="profile-container" onclick="hideSearch()">
+        <img id="background-user" src="" class="coverImage" alt="" style="max-height: 300px;">
+        <div class="dashboard">
+            <div class="left-dashboard">
+                <img src="" class="dashboard-img avatar-user" alt="" onclick="zoomImage()">
+                <div class="left-dashboard-info">
+                    <h3 id="user-name" class="user-name"></h3>
+                    <p id="number-friend">120 Friends - 20 mutuals</p>
+                    <div class="mutual-friend-../images" id="avt-list-friends">
+                        <!-- <img src="../images/member-1.png" alt="">
+                        <img src="../images/member-2.png" alt="">
+                        <img src="../images/member-3.png" alt="">
+                        <img src="../images/member-5.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+            <div class="right-dashboard-info">
+                <div class="right-dashboard-info-top">
+
+                    <button type="button"><i class="fas fa-plus"></i> Thêm vào tin </button>
+                    <button type="button" onclick="showEditProfile()"><i class="fas fa-pen"></i> Chỉnh sửa trang cá nhân</button>
+                </div>
+                <div class="right-div-single-logo"> <a href="#"> <i class="fas fa-ellipsis-h"></i></a></div>
+            </div>
+        </div>
+        <div class="container content-profile-container">
+            <div class="left-sidebar profile-left-sidebar">
+                <div class="left-profile-sidebar-top">
+                    <div class="intro-bio">
+                        <h4>Giới thiệu</h4>
+                        <p id="intro">Belive in yourself and you do unbelievable things <i class="far fa-smile-beam"></i></p>
+                        <hr>
+                    </div>
+                    <div class="background-details">
+                        <a href="#"><i class="fas fa-birthday-cake"></i>
+                            <p id="date-of-birth" style="margin: 0;"></p>
+                        </a>
+                        <a href="#"><i class="fas fa-graduation-cap"></i>
+                            <p id="education" style="margin: 0;"></p>
+                        </a>
+                        <a href="tel:0376339553"><i class="fas fa-phone"></i>
+                            <p id="phone-number-modal" style="margin: 0;"></p>
+                        </a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i>
+                            <p  id="address" style="margin: 0;"></p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="left-profile-sidebar-top gallery">
+                    <div class="heading-link profile-heading-link">
+                        <h4>Ảnh</h4>
+                        <p onclick="showAllPhotosUser()" style="color: blue;">Xem tất cả ảnh</p>
+                        <p onclick="hideListPhotos()" style="color: blue; display: none;" id="hide-list-post">Ẩn bớt</p>
+                    </div>
+
+                    <div class="gallery-photos">
+                        <div class="gallery-photos-rowFirst" id="photos-user">
+                            <!-- <img src="../images/photo1.png" alt="">
+                            <img src="../images/photo2.png" alt="">
+                            <img src="../images/photo3.png" alt="">
+                    
+                            <img src="../images/photo4.png" alt="">
+                            <img src="../images/photo5.png" alt="">
+                            <img src="../images/photo6.png" alt=""> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="left-profile-sidebar-top gallery">
+                    <div class="heading-link profile-heading-link">
+                        <h4>Friends</h4>
+                        <a href="">All Friends</a>
+                    </div>
+
+                    <div class="gallery-photos">
+                        <div class="gallery-photos-rowFirst" id="list-friends">
+                            <!-- <div class="first-friend">
+                                <img src="../images/member-1.png" alt="">
+                                <p>Nathan M</p>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- main-content------- -->
+
+            <div class="content-area profile-content-area">
+                <div class="write-post-container">
+                    <div class="user-profile">
+                        <img src="../images/profile-pic.png" class="avatar-user" alt="">
+                        <div>
+                            <p class="user-name"></p>
+                            <small>Public <i class="fas fa-caret-down"></i></small>
+                        </div>
+                    </div>
+
+                    <div class="post-upload-textarea">
+                        <textarea name="" placeholder="" id="placeholder-post" cols="30" rows="3" onclick="showModalPost()"></textarea>
+                        <div class="add-post-links">
+                            <a href="#"><img src="../images/live-video.png" alt="">Live Video</a>
+                            <a href="#"><img src="../images/photo.png" alt="">Photo/Video</a>
+                            <a href="#"><img src="../images/feeling.png" alt="">Feeling Activity</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="list-post">
+                    <!-- <div class="status-field-container write-post-container">
+                        <div class="user-profile-box">
+                            <div class="user-profile">
+                                <img src="../images/profile-pic.png" class="avatar-user" alt="">
+                                <div>
+                                    <p> Alex Carry</p>
+                                    <small>August 13 1999, 09.18 pm</small>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                            </div>
+                        </div>
+                        <div class="status-field">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
+                                laborum nihil accusantium odit laboriosam, sed sit autem! <a
+                                    href="#">#This_Post_is_Better!!!!</a>
+                            </p>
+                            <img src="../images/feed-image-1.png" alt="">
+    
+                        </div>
+                        <div class="post-reaction">
+                            <div class="activity-icons">
+                                <div><img src="../images/like-blue.png" alt="">120</div>
+                                <div><img src="../images/comments.png" alt="">52</div>
+                                <div><img src="../images/share.png" alt="">35</div>
+                            </div>
+                            <div class="post-profile-picture">
+                                <img src="../images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+        <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
+    </footer>
+
+    <!-- modal-update user -->
+    <div id="modal" style="display: none;">
+        <div id="modal-overlay"></div>
+        <div id="modal-body">
+            <div id="modal-inner" style="padding: 20px; display: flex; flex-direction: column;">
+                <div id="title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Chỉnh sửa trang cá nhân</h2>
+                    <i class="fas fa-times" style="font-size: 30px;" onclick="hideModalEidtPrifile()"></i>
+                </div>
+                <div id="avatar-title" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <h2>Ảnh đại diện</h2>
+                    <button style="background-color: aquamarine; height: 30px; width: 150px; font-size: large;" onclick="showInputAttachment()">Chỉnh sửa</button>
+                </div>
+                <img style="height: 200px; width: 200px; margin: auto; border-radius: 50% 50%; margin: 20px auto;" src="" alt="" id="img-avt">
+                <form id="control-btn-avt" style="display: none;" method="post" enctype="multipart/form-data">
+                    <input type="file" id="input-file-avt" name="file" required>
+                    <!-- <button style="margin: auto;" onclick="saveAvt2()" id="btn-save-avt">Lưu</button> -->
+                    <input type="submit" onclick="saveAvt()" id="btn-save-avt" value="upload">
+                    <input type="reset" onclick="cancleEditAvt()" id="btn-exit-avt" value="cancle">
+                </form>
+                <div id="user-name-edit" style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+                    <p id="user-name-modal" style="margin-left: 50px; margin-bottom: 0px;"></p>
+                    <input type="text" id="user-name-modal-value" style="display: none; background-color: white;margin-left: 50px;  margin-top: 10px; min-height: 40px; font-size: large; text-align: center;">
+                    <i class="fas fa-pen" style="margin-left: 20px;" onclick="showEditUserName()"></i>
+                    <i id="save-userName" class="fas fa-check" style="display: none; font-size: 30px; margin-left: 20px;" onclick="saveUpdateProfile()"></i>
+                    <i id="exit-userName" class="fas fa-times" style="display: none; font-size: 30px; margin-left: 20px;" onclick="exitEditUserName()"></i>
+                </div>
+                <p id="validation-user-name" style="color: red; margin: auto;"></p>
+                <div id="background-title" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <h2>Ảnh bìa</h2>
+                    <button style="background-color: aquamarine; height: 30px; width: 150px; font-size: large;" onclick="showUpdateBackground()">Chỉnh sửa</button>
+                </div>
+                <img style="height: 200px; width: 350px; margin: auto; margin: 20px auto;" src="" alt="" id="img-bg">
+                <form id="control-btn-background" style="display: none;" method="post" enctype="multipart/form-data">
+                    <input type="file" id="input-file-background" name="file" required>
+                    <input type="submit" onclick="saveBackground()" id="btn-save-background" value="upload">
+                    <input type="reset" onclick="cancleEditBackground()" id="btn-exit-background" value="cancle">
+                </form>
+                <div id="intro-title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Giới thiệu</h2>
+                    <div style="display: flex; align-items: center;">
+                        <button style="background-color: aquamarine; height: 30px; width: 150px; font-size: large;" onclick="showEditIntro()">Chỉnh sửa</button>
+                        <i id="save-intro" class="fas fa-check" style="display: none; font-size: 30px; margin-left: 20px;" onclick="saveUpdateProfile()"></i>
+                        <i id="exit-intro" class="fas fa-times" style="display: none; font-size: 30px; margin-left: 20px;" onclick="exitEditIntro()"></i>
+                    </div>
+                </div>
+                <p id="intro-edit" style="margin: auto;"></p>
+                <textarea id="intro-edit-value" style="display: none; background-color: white; margin: 20px auto; min-height: 40px; font-size: large; min-width: 300px; text-align: center"></textarea>
+                <div id="infor-title" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Thông tin</h2>
+                    <div style="display: flex;">
+                        <button style="background-color: aquamarine; height: 30px; width: 150px; font-size: large;" onclick="showEditInfor()">Chỉnh sửa</button>
+                        <i id="save-infor" class="fas fa-check" style="display: none; font-size: 30px; margin-left: 20px;" onclick="saveUpdateProfile()"></i>
+                        <i id="exit-infor" class="fas fa-times" style="display: none; font-size: 30px; margin-left: 20px;" onclick="exitEditInfor()"></i>
+                    </div>
+                </div>
+                <div id="info" style="display: flex; flex-direction: column;">
+                    Học vấn:
+                    <p id="education-info" class="options-infor" style="margin: auto;"></p>
+                    <textarea type="text" class="show-infor" id="education-info-value"  style="display: none; background-color: white; margin: 10px auto; min-height: 40px; font-size: large; min-width: 400px; text-align: center;"></textarea>
+                    Địa chỉ:
+                    <p id="address-info" class="options-infor" style="margin: auto;"></p>
+                    <textarea type="text" class="show-infor" id="address-info-value"  style="display: none;  background-color: white; margin: 0px auto; min-height: 40px; font-size: large; min-width: 400px; text-align: center;"></textarea>
+                    Ngày sinh:
+                    <p id="date-of-birth-info" class="options-infor" style="margin: auto;"></p>
+                    <textarea type="text" class="show-infor" id="date-of-birth-info-value"  style="display: none;  background-color: white; margin: 0px auto; min-height: 40px; font-size: large; min-width: 400px; text-align: center;"></textarea>
+                    Số điện thoại: 
+                    <p id="phone-number-info" class="options-infor" style="margin: auto;"></p>
+                    <textarea type="text" class="show-infor" id="phone-number-info-value"  style="display: none;  background-color: white; margin: 0px auto; min-height: 40px; font-size: large; min-width: 400px; text-align: center;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal - create Post -->
+    <div id="modal-post" style="display: none;">
+        <div id="modal-post-overlay" onclick="hideModalPost()"></div>
+        <div id="modal-post-body" style="margin-top: 100px;">
+            <div  id="modal-post-inner" style="padding: 20px;">
+                <div id="title-post" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+                    <h2>Thêm bài viết</h2>
+                    <i class="fas fa-times" style="font-size: 30px;" onclick="hideModalPost()"></i>
+                </div>
+                <div class="user-profile">
+                    <img src="../images/profile-pic.png" class="avatar-user" alt="">
+                    <div>
+                        <p class="user-name"> Alex Carry</p>
+                        <small>Public <i class="fas fa-caret-down" aria-hidden="true"></i></small>
+                    </div>
+                </div>
+                <form method="post" id="create-post-form" enctype="multipart/form-data">
+                    <div id="content-post">
+                        <textarea name="content" id="content-post-value" style="width: 100%; margin-top: 20px; padding: 10px;" rows="5" placeholder="Bạn đang nghĩ gì?"></textarea>
+                    </div>
+                    <div id="attachment-post" style="margin-top: 20px; margin-bottom: 20px;">
+                        <h3>Thêm ảnh vào bài viết của bạn</h3>
+                        <input type="file" name="file" required id="attachemt-file-post">
+                    </div>
+                    <div id="control-btn-post" >
+                        <input type="reset" value="Huỷ">
+                        <input style="background-color: blue;" type="submit" onclick="createPost()" value="Đăng">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal update Post -->
+    <div id="modal-update-post" style="display: none;">
+        <div id="modal-update-post-overlay" onclick="hideModaUpdatelPost()"></div>
+        <div id="modal-update-post-body" style="margin-top: 100px;">
+            <div id="modal-update-post-inner" style="padding: 20px;">
+                <div id="title-update-post" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;">
+                    <h2>Chỉnh sửa bài viết</h2>
+                    <i class="fas fa-times" style="font-size: 30px;" onclick="hideModaUpdatelPost()"></i>
+                </div>
+                <div class="user-profile">
+                    <img src="../images/profile-pic.png" class="avatar-user" alt="">
+                    <div>
+                        <p class="user-name"> Alex Carry</p>
+                        <small>Public <i class="fas fa-caret-down" aria-hidden="true"></i></small>
+                    </div>
+                </div>
+                <form method="post" id="update-post-form">
+                    <div id="new-content-post">
+                        <textarea name="content" id="content-update-post-value" style="width: 100%; margin-top: 20px; padding: 10px;" rows="3"></textarea>
+                    </div>
+                    <img id="show-photo-edit-post" src="" alt="" style="width: 100%;">
+                    <div id="control-btn-update-post" >
+                        <input style="background-color: blue; width: 100%; height: 40px; margin-top: 20px; font-size: large; color: #e7dfdf;" type="submit" value="Lưu" id="btn-update-post">
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal-comment -->
+    <div id="modal-comment" style="display: none;">
+        <div id="modal-comment-overlay" onclick="hideCommentBox()"></div>
+        <div id="modal-comment-body" style="margin-top: 100px; width: 800px; height: 500px;">
+            <div id="modal-comment-inner">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8 col-lg-6" style="width: 100%;">
+                        <div class="card shadow-0 border" style="background-color: #f0f2f5">
+                            <div class="card-body p-4">
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="valueComment" placeholder="Nhập bình luận...">
+                                    <button id="btn-sent-comment">Bình luận</button>
+                                </div>   
+                                <div id="comment-line">
+                                    <!-- <div class="card mb-4">
+                                        <div class="card-body">
+                                          <p>Type your note, and hit enter to add it</p>
+                          
+                                          <div class="d-flex justify-content-between">
+                                            <div class="d-flex flex-row align-items-center">
+                                              <img
+                                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
+                                                alt="avatar"
+                                                width="25"
+                                                height="25"
+                                              />
+                                              <p class="small mb-0 ms-2">Martha</p>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                              <p class="small text-muted mb-0">Upvote?</p>
+                                              <i
+                                                class="far fa-thumbs-up mx-2 fa-xs text-black"
+                                                style="margin-top: -0.16rem"
+                                              ></i>
+                                              <p class="small text-muted mb-0">3</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js//function.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+
+</html>
