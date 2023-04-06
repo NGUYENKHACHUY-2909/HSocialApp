@@ -22,7 +22,7 @@ public class FriendShipController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteFriendShip(@PathVariable(value = "id") int id){
         friendShipsService.cancelFriendShip(id);
-        return new ResponseEntity<>("Huỷ kết bạn thành công.", HttpStatus.OK);
+        return new ResponseEntity<>("Đã huỷ kết bạn.", HttpStatus.OK);
     }
 
     @PostMapping(value = "/{userId}/{friendId}")
