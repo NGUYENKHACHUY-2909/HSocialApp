@@ -102,24 +102,3 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY(user_id) REFERENCES `user`(user_id),
     FOREIGN KEY(friend_id) REFERENCES `user`(user_id)
 );
-
--- create table message
-DROP TABLE IF EXISTS `message`;
-CREATE TABLE IF NOT EXISTS `message`(
-    message_id          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    sender_id           TINYINT UNSIGNED,
-    receiver_id         TINYINT UNSIGNED,
-    content             TEXT NOT NULL,
-    created_at          DATETIME DEFAULT NOW(),
-    FOREIGN KEY(sender_id) REFERENCES `user`(user_id),
-    FOREIGN KEY(receiver_id) REFERENCES `user`(user_id)
-);
-
--- create table conversation
-DROP TABLE IF EXISTS `conversation`;
-CREATE TABLE IF NOT EXISTS `conversation`(
-    conversation_id     INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    message_id          INT UNSIGNED NOT NULL,
-    created_at          DATETIME DEFAULT NOW(),
-    FOREIGN KEY(message_id) REFERENCES `message`(message_id)
-);
